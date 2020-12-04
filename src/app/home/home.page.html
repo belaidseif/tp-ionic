@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Todo App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content >
+  <div class="bg-img">
+    <H1>Today,</H1>
+    <h5>{{currentDate}}</h5>
+    <ion-card *ngFor="let task of allTasks">
+      <ion-item>
+        <ion-checkbox (ionChange)="changeCheckedState(task)" [(ngModel)]="task.checked" color="success"></ion-checkbox>
+        <!-- <h2 *ngIf="task.checked" > {{task.text}} </h2> -->
+        <ion-label>
+          <h2 [ngStyle]="{'text-decoration': task.checked?'line-through': 'none'}" > {{task.text}} </h2>
+          <p>{{task.date}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-item >
+      <ion-input [(ngModel)]="newTask" ></ion-input>
+      <ion-button (click)="addNewTask()">
+        <ion-icon slot="icon-only" name="add-outline" ></ion-icon>
+      </ion-button>
+    </ion-item>  
   </div>
 </ion-content>
