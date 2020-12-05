@@ -49,10 +49,15 @@ h5 {
 }
 
 .add-button {
-  --background: #383a3e;
+  background: #383a3e;
   position: absolute;
-  bottom: 5px;
-  width: 96%;
-  --color: #ffffff;
-  margin-left: 2%;
+  bottom: 15px;
+  width: 94%;
+  color: #ffffff;
+  margin-left: 3%;
+  border: 1px solid white;
+  border-radius: 0%;
+  line-height: 40px;
+  outline-style: none;
+  font-size: 20px;
 }

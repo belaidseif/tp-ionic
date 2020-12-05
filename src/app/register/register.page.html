@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onRegister(f)" >
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" ngModel email></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+  
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" ngModel name="password" password></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-button color="danger" expand="block"  type="submit">
+      Sign Up
+  </ion-button>
+  </form>
+</ion-content>
