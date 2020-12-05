@@ -16,26 +16,18 @@ export class AuthService {
         this.user = user;
         this.userSubject.next(user)
         localStorage.setItem('user', JSON.stringify(this.user));
-        console.log(1);
-        
+        this.router.navigate([''])
       } else {
         localStorage.setItem('user', null);
-        console.log(3);
       }
     })
   }
 
   async login(email: string, password: string) {
     var result = await this.afAuth.signInWithEmailAndPassword(email, password)
-    console.log('result ');
-    
-    console.log(result);
-    
-    this.router.navigate(['home']);
   }
   async register(email: string, password: string) {
     var result = await this.afAuth.createUserWithEmailAndPassword(email, password)
-    this.router.navigate(['home']);
   }
   async sendPasswordResetEmail(passwordResetEmail: string) {
     return await this.afAuth.sendPasswordResetEmail(passwordResetEmail);

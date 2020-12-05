@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>checked</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="bg-img">
+    <H1>Today,</H1>
+    <h5>{{currentDate}}</h5>
+    <ion-card *ngFor="let task of allTasks">
+      <ion-item>
+        <ion-checkbox  color="success" [(ngModel)]="task.checked"></ion-checkbox>
+        <ion-label>
+          <h2 [ngStyle]="{'text-decoration': task.checked?'line-through': 'none'}" > {{task.text}} </h2>
+          <p>{{task.date}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

@@ -18,7 +18,6 @@
     <ion-card *ngFor="let task of allTasks">
       <ion-item>
         <ion-checkbox (ionChange)="changeCheckedState(task)" [(ngModel)]="task.checked" color="success"></ion-checkbox>
-        <!-- <h2 *ngIf="task.checked" > {{task.text}} </h2> -->
         <ion-label>
           <h2 [ngStyle]="{'text-decoration': task.checked?'line-through': 'none'}" > {{task.text}} </h2>
           <p>{{task.date}}</p>

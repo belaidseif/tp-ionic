@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { TaskService } from '../task.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   currentDate :string;
   newTask: string;
   allTasks = []
   onAdd = true;
   user = {email:'', id: ''};
-  constructor(private angFire: AngularFireDatabase, private authService: AuthService) {
+  constructor(private angFire: AngularFireDatabase,
+     private authService: AuthService,
+     private taskService: TaskService) {
     const todayDate = new Date()
     const options = {
       weekday: 'long',
@@ -22,13 +26,14 @@ export class HomePage implements OnInit {
     this.currentDate = todayDate.toLocaleDateString('en-en', options)
   }
   ngOnInit(){
-    this.authService.userSubject.subscribe(user => {
-      console.log(user);
-      this.user.email = user.email
-      this.user.id = user.uid
+
+      console.log(this.authService.user);
+      this.user.email = this.authService.user.email
+      this.user.id = this.authService.user.uid
       this.getTask()
-    })
+  
   }
+
   getTask(){
     this.angFire.list('Tasks/').snapshotChanges(['child_added']).subscribe(reponse => {
       this.allTasks = []
@@ -42,9 +47,10 @@ export class HomePage implements OnInit {
           user: element.payload.exportVal().user
         })
       })
-      console.log(this.allTasks);
-      
       this.allTasks = this.allTasks.filter(task => task.user === this.user.id)
+      this.taskService.setTask(this.allTasks)
+      console.log('change');
+            
     })
   }
   addNewTask(){
@@ -58,6 +64,7 @@ export class HomePage implements OnInit {
   }
   changeCheckedState(task){
     this.angFire.object(`Tasks/${task.key}/checked`).set(task.checked)
+    this.taskService.updateUnchecked()
   }
 
   logout(){

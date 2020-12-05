@@ -1,17 +1,22 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>pwd-reset</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
-    </ion-item>
-  </ion-card>
-  <ion-button color="danger" expand="block">
-    RESET NOW
-</ion-button>
+  <form #f="ngForm" (ngSubmit)="onReset(f)">
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" ngModel email></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-button type="submit" color="danger" expand="block">
+      RESET NOW
+  </ion-button>
+  </form>
 </ion-content>
