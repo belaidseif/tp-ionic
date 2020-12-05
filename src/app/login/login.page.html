@@ -25,16 +25,12 @@
         <ion-input type="password" [(ngModel)]="password"></ion-input>
       </ion-item>
     </ion-card>
-    <ion-button color="danger" expand="block" (click)="onSignIn()" >
-      SIGN IN
-  </ion-button>
-  <div class="ion-margin-vertical ion-text-center">
-    <ion-button color="success" fill="solid" routerLink="/register">
-        REGISTER
-    </ion-button>
-    <ion-button color="light" fill="solid" routerLink="/pwd-reset">
-        FORGET PASSWORD
-    </ion-button>
-</div>
+  <div class="container-button ion-margin-vertical">
+    <button class="btn signin" (click)="onSignIn()" >SIGN IN</button>
+  </div>
+  <div class="container-button ion-margin-vertical">
+    <button class="btn register" routerLink="/register" >REGISTER</button>
+    <button class="btn pwd-reset" routerLink="/pwd-reset" >RESET PASSWORD</button>
+  </div>
   </div>
 </ion-content>

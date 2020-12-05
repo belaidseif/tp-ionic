@@ -14,6 +14,7 @@ export class HomePage implements OnInit, OnDestroy {
   allTasks = []
   onAdd = true;
   user = {email:'', id: ''};
+  userSubject: Subscription
   constructor(private angFire: AngularFireDatabase,
      private authService: AuthService,
      private taskService: TaskService) {
@@ -28,9 +29,16 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit(){
 
       console.log(this.authService.user);
-      this.user.email = this.authService.user.email
-      this.user.id = this.authService.user.uid
-      this.getTask()
+      if(this.authService.user){
+        this.user.email = this.authService.user.email
+        this.user.id = this.authService.user.uid
+        this.getTask()
+      }
+      this.userSubject = this.authService.userSubject.subscribe(user => {
+        this.user.email = user.email
+        this.user.id = user.uid
+        this.getTask()
+      })
   
   }
 
@@ -38,7 +46,6 @@ export class HomePage implements OnInit, OnDestroy {
     this.angFire.list('Tasks/').snapshotChanges(['child_added']).subscribe(reponse => {
       this.allTasks = []
       reponse.forEach(element => {
-        console.log(element.payload);
         this.allTasks.push({
           key: element.key,
           text: element.payload.exportVal().text,
@@ -49,7 +56,6 @@ export class HomePage implements OnInit, OnDestroy {
       })
       this.allTasks = this.allTasks.filter(task => task.user === this.user.id)
       this.taskService.setTask(this.allTasks)
-      console.log('change');
             
     })
   }
@@ -64,10 +70,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
   changeCheckedState(task){
     this.angFire.object(`Tasks/${task.key}/checked`).set(task.checked)
+    
     this.taskService.updateUnchecked()
   }
 
   logout(){
     this.authService.logout()
+  }
+  ngOnDestroy(){
+    this.userSubject.unsubscribe()
   }
 }

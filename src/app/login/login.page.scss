@@ -5,3 +5,30 @@
     background-image: url('../../assets/login_bg.png');
     background-size: cover;
   }
+  .container-button{
+    margin-top: 50px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn{
+    margin-top: 10px;
+    border-radius: 10px;
+    flex: 1;
+    height: 45px;
+    color: white;
+    font-size: 16px;
+    outline-style: none;
+  }
+  .btn.register{
+    margin-right: 5px;
+    background-color: #4BB543;
+  }
+  .btn.pwd-reset{
+    margin-left: 5px;
+    background-color: #6c757d;
+  }
+  .btn.signin{
+    background-color: #dc3545;
+  }
